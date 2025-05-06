@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[实验室名称] - [大学/机构名称]</title>
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--secondary-color);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏 */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* 英雄区域 */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('lab-background.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        /* 关于部分 */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* 研究方向 */
+        .research-areas {
+            background-color: var(--light-color);
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .research-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .research-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .research-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* 团队成员 */
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .member-card {
+            text-align: center;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .member-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            display: block;
+            border: 5px solid var(--light-color);
+        }
+
+        /* 新闻动态 */
+        .news-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .news-item {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .news-date {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .copyright {
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                background-color: var(--primary-color);
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">[实验室名称]</div>
+                <div class="menu-toggle">☰</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="research.html">研究方向</a></li>
+                    <li><a href="#team">团队成员</a></li>
+                    <li><a href="#news">新闻动态</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>探索科学前沿 · 创新驱动未来</h1>
+                <p>[实验室名称]致力于[研究领域]的创新研究，推动[相关领域]的技术进步</p>
+                <a href="#contact" class="btn">加入我们</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">关于我们</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>[实验室名称]成立于[年份]，是[大学/机构名称]重点建设的科研平台。实验室聚焦于[研究领域]的关键科学问题，在[具体方向]方面取得了一系列突破性成果。</p>
+                    <p>实验室拥有[面积]平方米的实验空间，配备[主要设备]，为科研工作提供一流支撑。近年来，实验室承担了[国家级项目数量]项国家级科研项目，发表SCI论文[数量]篇。</p>
+                    <p>我们秉持"[实验室理念或口号]"的科研理念，致力于培养具有国际视野的创新人才。</p>
+                </div>
+                <div class="about-image">
+                    <img src="lab-photo.jpg" alt="实验室环境">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 研究方向 -->
+    <section id="research" class="section research-areas">
+        <div class="container">
+            <h2 class="section-title">研究方向</h2>
+            <div class="research-grid">
+                <div class="research-card">
+                    <h3>方向一名称</h3>
+                    <p>详细描述研究方向一的内容，包括研究目标、方法和技术路线等。例如：开发新型机器学习算法用于医疗影像分析。</p>
+                </div>
+                <div class="research-card">
+                    <h3>方向二名称</h3>
+                    <p>详细描述研究方向二的内容，包括研究目标、方法和技术路线等。例如：研究纳米材料在能源存储中的应用。</p>
+                </div>
+                <div class="research-card">
+                    <h3>方向三名称</h3>
+                    <p>详细描述研究方向三的内容，包括研究目标、方法和技术路线等。例如：探索量子计算在密码学中的潜在应用。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 团队成员 -->
+    <section id="team" class="section">
+        <div class="container">
+            <h2 class="section-title">团队成员</h2>
+            <div class="team-members">
+                <div class="member-card">
+                    <img src="pi-photo.jpg" alt="PI照片" class="member-image">
+                    <h3>[PI姓名]</h3>
+                    <p>教授/首席研究员</p>
+                    <p>研究专长：[研究方向]</p>
+                </div>
+                <div class="member-card">
+                    <img src="postdoc-photo.jpg" alt="博士后照片" class="member-image">
+                    <h3>[博士后姓名]</h3>
+                    <p>博士后研究员</p>
+                    <p>研究方向：[具体方向]</p>
+                </div>
+                <div class="member-card">
+                    <img src="phd-photo.jpg" alt="博士生照片" class="member-image">
+                    <h3>[博士生姓名]</h3>
+                    <p>博士研究生</p>
+                    <p>研究方向：[具体方向]</p>
+                </div>
+                <!-- 可以添加更多成员卡片 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 新闻动态 -->
+    <section id="news" class="section">
+        <div class="container">
+            <h2 class="section-title">新闻动态</h2>
+            <div class="news-container">
+                <div class="news-item">
+                    <div class="news-date">2024年7月15日</div>
+                    <h3>[成员姓名]在[会议名称]发表主题演讲</h3>
+                    <p>详细新闻内容描述，包括研究成果的亮点和意义。</p>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">2024年6月20日</div>
+                    <h3>实验室论文被[期刊名称]接收</h3>
+                    <p>论文标题："[论文标题]"，研究了[研究内容]。</p>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">2024年5月10日</div>
+                    <h3>实验室获得[基金名称]资助</h3>
+                    <p>资助金额：[金额]，项目周期：[时间]。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">联系我们</h2>
+            <div class="contact-content">
+                <p><strong>地址：</strong>[详细地址]</p>
+                <p><strong>邮箱：</strong><a href="mailto:lab@university.edu">lab@university.edu</a></p>
+                <p><strong>电话：</strong>[实验室电话]</p>
+                <p><strong>招聘信息：</strong>我们常年招收博士后、博士/硕士研究生，欢迎联系咨询。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="research.html">研究方向</a></li>
+                        <li><a href="#team">团队成员</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>资源</h3>
+                    <ul>
+                        <li><a href="#">发表论文</a></li>
+                        <li><a href="#">研究项目</a></li>
+                        <li><a href="#">实验室手册</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系</h3>
+                    <ul>
+                        <li>邮箱: lab@university.edu</li>
+                        <li>电话: [实验室电话]</li>
+                        <li>地址: [简要地址]</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 [实验室名称]. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // 关闭移动端菜单
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+
+        // 滚动时导航栏效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(44, 62, 80, 0.95)';
+                header.style.padding = '0.5rem 0';
+            } else {
+                header.style.background = 'var(--primary-color)';
+                header.style.padding = '1rem 0';
+            }
+        });
+    </script>
+</body>
+</html>
